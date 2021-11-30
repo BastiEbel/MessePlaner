@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TestdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Exponat">
+          <Key>
+            <PropertyRef Name="Exponat_ID" />
+          </Key>
+          <Property Name="Exponat_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exponatname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Exponatnummer" Type="int" Nullable="false" />
+          <Property Name="Exponatzubehör" Type="varchar" MaxLength="255" />
+          <Property Name="Anzahl" Type="int" />
+          <Property Name="Exponatversion" Type="decimal" Precision="4" Scale="2" />
+        </EntityType>
+        <EntityType Name="Maße">
+          <Key>
+            <PropertyRef Name="Maße_ID" />
+          </Key>
+          <Property Name="Maße_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exponat_ID" Type="int" Nullable="false" />
+          <Property Name="Länge_cm" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Breite_cm" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Höhe_cm" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Gewicht_kg" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Retoure">
+          <Key>
+            <PropertyRef Name="Messe_ID" />
+          </Key>
+          <Property Name="Messe_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exponat_ID" Type="int" Nullable="false" />
+          <Property Name="Messe" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Land" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Straße" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Hausnummer" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PLZ" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Datum" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Versand">
+          <Key>
+            <PropertyRef Name="Messe_ID" />
+          </Key>
+          <Property Name="Messe_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exponat_ID" Type="int" Nullable="false" />
+          <Property Name="Messe" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Land" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Straße" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Hausnummer" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PLZ" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Datum" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Zubehör">
+          <Key>
+            <PropertyRef Name="Zubehör_ID" />
+          </Key>
+          <Property Name="Zubehör_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Exponat_ID" Type="int" Nullable="false" />
+          <Property Name="Zubehörname" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Exponat_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Länge_cm" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Breite_cm" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Höhe_cm" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Gewicht_kg" Type="decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="Anzahl" Type="int" />
+        </EntityType>
+        <Association Name="fk_maße_exponat">
+          <End Role="Exponat" Type="Self.Exponat" Multiplicity="1" />
+          <End Role="Maße" Type="Self.Maße" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exponat">
+              <PropertyRef Name="Exponat_ID" />
+            </Principal>
+            <Dependent Role="Maße">
+              <PropertyRef Name="Exponat_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_retoure_exponat">
+          <End Role="Exponat" Type="Self.Exponat" Multiplicity="1" />
+          <End Role="Retoure" Type="Self.Retoure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exponat">
+              <PropertyRef Name="Exponat_ID" />
+            </Principal>
+            <Dependent Role="Retoure">
+              <PropertyRef Name="Exponat_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_versand_exponat">
+          <End Role="Exponat" Type="Self.Exponat" Multiplicity="1" />
+          <End Role="Versand" Type="Self.Versand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exponat">
+              <PropertyRef Name="Exponat_ID" />
+            </Principal>
+            <Dependent Role="Versand">
+              <PropertyRef Name="Exponat_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_zubehör_exponat">
+          <End Role="Exponat" Type="Self.Exponat" Multiplicity="1" />
+          <End Role="Zubehör" Type="Self.Zubehör" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exponat">
+              <PropertyRef Name="Exponat_ID" />
+            </Principal>
+            <Dependent Role="Zubehör">
+              <PropertyRef Name="Exponat_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestdbModelStoreContainer">
+          <EntitySet Name="Exponat" EntityType="Self.Exponat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maße" EntityType="Self.Maße" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Retoure" EntityType="Self.Retoure" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Versand" EntityType="Self.Versand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zubehör" EntityType="Self.Zubehör" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_maße_exponat" Association="Self.fk_maße_exponat">
+            <End Role="Exponat" EntitySet="Exponat" />
+            <End Role="Maße" EntitySet="Maße" />
+          </AssociationSet>
+          <AssociationSet Name="fk_retoure_exponat" Association="Self.fk_retoure_exponat">
+            <End Role="Exponat" EntitySet="Exponat" />
+            <End Role="Retoure" EntitySet="Retoure" />
+          </AssociationSet>
+          <AssociationSet Name="fk_versand_exponat" Association="Self.fk_versand_exponat">
+            <End Role="Exponat" EntitySet="Exponat" />
+            <End Role="Versand" EntitySet="Versand" />
+          </AssociationSet>
+          <AssociationSet Name="fk_zubehör_exponat" Association="Self.fk_zubehör_exponat">
+            <End Role="Exponat" EntitySet="Exponat" />
+            <End Role="Zubehör" EntitySet="Zubehör" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Exponat">
+          <Key>
+            <PropertyRef Name="Exponat_ID" />
+          </Key>
+          <Property Name="Exponat_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exponatname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Exponatnummer" Type="Int32" Nullable="false" />
+          <Property Name="Exponatzubehör" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Anzahl" Type="Int32" />
+          <Property Name="Exponatversion" Type="Decimal" Precision="4" Scale="2" />
+          <NavigationProperty Name="Maße" Relationship="Self.fk_maße_exponat" FromRole="Exponat" ToRole="Maße" />
+          <NavigationProperty Name="Retoure" Relationship="Self.fk_retoure_exponat" FromRole="Exponat" ToRole="Retoure" />
+          <NavigationProperty Name="Versand" Relationship="Self.fk_versand_exponat" FromRole="Exponat" ToRole="Versand" />
+          <NavigationProperty Name="Zubehör" Relationship="Self.fk_zubehör_exponat" FromRole="Exponat" ToRole="Zubehör" />
+        </EntityType>
+        <EntityType Name="Maße">
+          <Key>
+            <PropertyRef Name="Maße_ID" />
+          </Key>
+          <Property Name="Maße_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exponat_ID" Type="Int32" Nullable="false" />
+          <Property Name="Länge_cm" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Breite_cm" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Höhe_cm" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Gewicht_kg" Type="Decimal" Precision="10" Scale="3" Nullable="false" />
+          <NavigationProperty Name="Exponat" Relationship="Self.fk_maße_exponat" FromRole="Maße" ToRole="Exponat" />
+        </EntityType>
+        <EntityType Name="Retoure">
+          <Key>
+            <PropertyRef Name="Messe_ID" />
+          </Key>
+          <Property Name="Messe_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exponat_ID" Type="Int32" Nullable="false" />
+          <Property Name="Messe" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Land" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Straße" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Hausnummer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PLZ" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Exponat" Relationship="Self.fk_retoure_exponat" FromRole="Retoure" ToRole="Exponat" />
+        </EntityType>
+        <EntityType Name="Versand">
+          <Key>
+            <PropertyRef Name="Messe_ID" />
+          </Key>
+          <Property Name="Messe_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exponat_ID" Type="Int32" Nullable="false" />
+          <Property Name="Messe" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Land" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Straße" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Hausnummer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PLZ" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Datum" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Exponat" Relationship="Self.fk_versand_exponat" FromRole="Versand" ToRole="Exponat" />
+        </EntityType>
+        <EntityType Name="Zubehör">
+          <Key>
+            <PropertyRef Name="Zubehör_ID" />
+          </Key>
+          <Property Name="Zubehör_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Exponat_ID" Type="Int32" Nullable="false" />
+          <Property Name="Zubehörname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Exponat_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Länge_cm" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Breite_cm" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Höhe_cm" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Gewicht_kg" Type="Decimal" Precision="10" Scale="3" Nullable="false" />
+          <Property Name="Anzahl" Type="Int32" />
+          <NavigationProperty Name="Exponat" Relationship="Self.fk_zubehör_exponat" FromRole="Zubehör" ToRole="Exponat" />
+        </EntityType>
+        <Association Name="fk_maße_exponat">
+          <End Role="Exponat" Type="Self.Exponat" Multiplicity="1" />
+          <End Role="Maße" Type="Self.Maße" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exponat">
+              <PropertyRef Name="Exponat_ID" />
+            </Principal>
+            <Dependent Role="Maße">
+              <PropertyRef Name="Exponat_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_retoure_exponat">
+          <End Role="Exponat" Type="Self.Exponat" Multiplicity="1" />
+          <End Role="Retoure" Type="Self.Retoure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exponat">
+              <PropertyRef Name="Exponat_ID" />
+            </Principal>
+            <Dependent Role="Retoure">
+              <PropertyRef Name="Exponat_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_versand_exponat">
+          <End Role="Exponat" Type="Self.Exponat" Multiplicity="1" />
+          <End Role="Versand" Type="Self.Versand" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exponat">
+              <PropertyRef Name="Exponat_ID" />
+            </Principal>
+            <Dependent Role="Versand">
+              <PropertyRef Name="Exponat_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_zubehör_exponat">
+          <End Role="Exponat" Type="Self.Exponat" Multiplicity="1" />
+          <End Role="Zubehör" Type="Self.Zubehör" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exponat">
+              <PropertyRef Name="Exponat_ID" />
+            </Principal>
+            <Dependent Role="Zubehör">
+              <PropertyRef Name="Exponat_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Exponat" EntityType="Self.Exponat" />
+          <EntitySet Name="Maße" EntityType="Self.Maße" />
+          <EntitySet Name="Retoure" EntityType="Self.Retoure" />
+          <EntitySet Name="Versand" EntityType="Self.Versand" />
+          <EntitySet Name="Zubehör" EntityType="Self.Zubehör" />
+          <AssociationSet Name="fk_maße_exponat" Association="Self.fk_maße_exponat">
+            <End Role="Exponat" EntitySet="Exponat" />
+            <End Role="Maße" EntitySet="Maße" />
+          </AssociationSet>
+          <AssociationSet Name="fk_retoure_exponat" Association="Self.fk_retoure_exponat">
+            <End Role="Exponat" EntitySet="Exponat" />
+            <End Role="Retoure" EntitySet="Retoure" />
+          </AssociationSet>
+          <AssociationSet Name="fk_versand_exponat" Association="Self.fk_versand_exponat">
+            <End Role="Exponat" EntitySet="Exponat" />
+            <End Role="Versand" EntitySet="Versand" />
+          </AssociationSet>
+          <AssociationSet Name="fk_zubehör_exponat" Association="Self.fk_zubehör_exponat">
+            <End Role="Exponat" EntitySet="Exponat" />
+            <End Role="Zubehör" EntitySet="Zubehör" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestdbModelStoreContainer" CdmEntityContainer="TestdbEntities">
+          <EntitySetMapping Name="Exponat">
+            <EntityTypeMapping TypeName="TestdbModel.Exponat">
+              <MappingFragment StoreEntitySet="Exponat">
+                <ScalarProperty Name="Exponat_ID" ColumnName="Exponat_ID" />
+                <ScalarProperty Name="Exponatname" ColumnName="Exponatname" />
+                <ScalarProperty Name="Exponatnummer" ColumnName="Exponatnummer" />
+                <ScalarProperty Name="Exponatzubehör" ColumnName="Exponatzubehör" />
+                <ScalarProperty Name="Anzahl" ColumnName="Anzahl" />
+                <ScalarProperty Name="Exponatversion" ColumnName="Exponatversion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maße">
+            <EntityTypeMapping TypeName="TestdbModel.Maße">
+              <MappingFragment StoreEntitySet="Maße">
+                <ScalarProperty Name="Maße_ID" ColumnName="Maße_ID" />
+                <ScalarProperty Name="Exponat_ID" ColumnName="Exponat_ID" />
+                <ScalarProperty Name="Länge_cm" ColumnName="Länge_cm" />
+                <ScalarProperty Name="Breite_cm" ColumnName="Breite_cm" />
+                <ScalarProperty Name="Höhe_cm" ColumnName="Höhe_cm" />
+                <ScalarProperty Name="Gewicht_kg" ColumnName="Gewicht_kg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Retoure">
+            <EntityTypeMapping TypeName="TestdbModel.Retoure">
+              <MappingFragment StoreEntitySet="Retoure">
+                <ScalarProperty Name="Messe_ID" ColumnName="Messe_ID" />
+                <ScalarProperty Name="Exponat_ID" ColumnName="Exponat_ID" />
+                <ScalarProperty Name="Messe" ColumnName="Messe" />
+                <ScalarProperty Name="Land" ColumnName="Land" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="Straße" ColumnName="Straße" />
+                <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Versand">
+            <EntityTypeMapping TypeName="TestdbModel.Versand">
+              <MappingFragment StoreEntitySet="Versand">
+                <ScalarProperty Name="Messe_ID" ColumnName="Messe_ID" />
+                <ScalarProperty Name="Exponat_ID" ColumnName="Exponat_ID" />
+                <ScalarProperty Name="Messe" ColumnName="Messe" />
+                <ScalarProperty Name="Land" ColumnName="Land" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="Straße" ColumnName="Straße" />
+                <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zubehör">
+            <EntityTypeMapping TypeName="TestdbModel.Zubehör">
+              <MappingFragment StoreEntitySet="Zubehör">
+                <ScalarProperty Name="Zubehör_ID" ColumnName="Zubehör_ID" />
+                <ScalarProperty Name="Exponat_ID" ColumnName="Exponat_ID" />
+                <ScalarProperty Name="Zubehörname" ColumnName="Zubehörname" />
+                <ScalarProperty Name="Exponat_name" ColumnName="Exponat_name" />
+                <ScalarProperty Name="Länge_cm" ColumnName="Länge_cm" />
+                <ScalarProperty Name="Breite_cm" ColumnName="Breite_cm" />
+                <ScalarProperty Name="Höhe_cm" ColumnName="Höhe_cm" />
+                <ScalarProperty Name="Gewicht_kg" ColumnName="Gewicht_kg" />
+                <ScalarProperty Name="Anzahl" ColumnName="Anzahl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

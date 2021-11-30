@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="00d139641fb24179862732f81e3a7e0c" Name="Diagram1">
+        <EntityTypeShape EntityType="TestdbModel.Exponat" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestdbModel.Maße" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestdbModel.Retoure" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestdbModel.Versand" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TestdbModel.Zubehör" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <AssociationConnector Association="TestdbModel.fk_maße_exponat" ManuallyRouted="false" />
+        <AssociationConnector Association="TestdbModel.fk_retoure_exponat" ManuallyRouted="false" />
+        <AssociationConnector Association="TestdbModel.fk_versand_exponat" ManuallyRouted="false" />
+        <AssociationConnector Association="TestdbModel.fk_zubehör_exponat" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
